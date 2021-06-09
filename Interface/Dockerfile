@@ -2,8 +2,7 @@ FROM node:alpine as builder
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-ENV CI=1
-RUN npm ci
+RUN npm install
 
 COPY . .
 RUN npm run build -- --prod --output-path=/dist
