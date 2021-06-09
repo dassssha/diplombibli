@@ -1,0 +1,184 @@
+<!-- Здесь начинается таблица со списокм всех гостов -->
+
+<div class="container">
+    <div *ngIf="viewAll">
+      <div class="row" style="margin-bottom: 5px;">
+        <input  class="form-control" type="text" placeholder="Поиск..."  #box (keyup.enter)="SearchGosts($event.target.value)" style="margin-top: 10px;"> <p>{{value}}</p>
+        <div class="col-lg-4 col-lg-offset-4" style="">
+          
+            <!-- <input type="search" id="container-search" value="" class="form-control" placeholder="Поиск" (change)="onChangeEvent($event)" > -->
+        </div>
+      </div>
+      <div *ngFor="let gost of searchGosts">
+        <!-- <div class="container" style="margin-bottom:5px;"> -->
+          <div class="row">
+            <article style="width: 100%;" class="col-md-4 col-lg-3">
+              <div class="card-content">
+             <a class="spectrum-a" (click)="gostsOr(gost)" style="display: block; height: 100%;">
+                  <img style="width: 100px; height: 100px; opacity: 0.8;" src="{{gost.img}}" class="spectrum1">
+                <h4 style="display: inline-block; width: 25%; text-align: center; " class="spectrum-h2">Гост {{gost.name}}</h4>
+                  <p style="display: inline-block;width: 60%; color: black;">{{gost.description}}</p>
+                </a>
+              </div>
+              <!-- .card-content -->
+            </article>
+            </div>
+            </div>
+          </div>
+     
+      
+    <button style="float: right; height: 34px; position: relative; color: #566473; letter-spacing: 1px; border: 0; background: white " *ngIf="flag" (click)="view()">Вернуться к списку ГОСТ</button>
+    
+    <div class="dialog" *ngIf="dialog">
+      <p style="text-align: center;font-size: 25px;">Выберите резьбу !</p>
+      <button (click)="off()" class="btn btn-primary" style="border-color: rgb(37, 33, 33);color: black; background-color:rgb(255, 250, 250); text-align: center; width: 30%; margin: 0% 35% 3% 35%; height: 5%;">Ок</button>
+    </div>
+    <div *ngIf="flag">
+      <table class="table" *ngIf="flagGost" >    
+        <thead class="thead-inverse">
+        <tr>
+          <!-- <th>№</th> -->
+          <th style="text-transform: lowercase;">da</th>
+          <th style="text-transform: lowercase;">dk</th>
+          <th style="text-transform: lowercase;">m</th>
+          <th style="text-transform: lowercase;">n</th>
+          <th style="text-transform: lowercase;">t</th>
+          <th>Резьба</th>
+          <th></th>
+        </tr>
+        </thead>
+        <!-- Вывод всех параметров -->
+        <!-- TypeGost - обьект определенной строки с параметрами -->
+        <tbody>
+        <tr *ngFor="let GostParamRezbsItem of GostParamRezbs">
+          <!-- <th >{{GostParamRezbsItem.Param.id}}</th> -->
+          <th>{{GostParamRezbsItem.Param.da}}</th>
+          <th>{{GostParamRezbsItem.Param.dk}}</th>
+          <th>{{GostParamRezbsItem.Param.m}}</th>
+          <th>{{GostParamRezbsItem.Param.n}}</th>
+          <th>{{GostParamRezbsItem.Param.t}}</th>
+          <select [(ngModel)]="selectedRezb"  class="selectpicker"  style="margin:5px; width: 110px;" (change)="selectedRezdEvent(GostParamRezbsItem.Param.id)" >
+          <option  *ngFor=" let Rezb of GostParamRezbsItem.Rezbs" [ngValue]="Rezb">{{Rezb.type_rezb}}</option>
+        </select>
+         <td>
+            <button class="btn btn-secondary" (click)="insertFile(GostParamRezbsItem.Param,selectedRezb)">Вставить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table" *ngIf="flagGost1">    
+        <thead class="thead-inverse">
+        <tr>
+          <th>№</th>
+          <th>D</th>
+          <th>D1</th>
+          <th style="text-transform: lowercase;">d1</th>
+          <th style="text-transform: lowercase;">m</th>
+          <th style="text-transform: lowercase;">h</th>
+          <th style="text-transform: lowercase;">c</th>
+          <th style="text-transform: lowercase;">c1</th>
+          <th>Резьба</th>
+          <th></th>
+        </tr>
+        </thead>
+        <!-- Вывод всех параметров -->
+        <!-- TypeGost - обьект определенной строки с параметрами -->
+        <tbody>
+        <tr *ngFor="let TypeGost of TypeGosts">
+          <th >{{TypeGost.id}}</th>
+          <th>{{TypeGost.d}}</th>
+          <th>{{TypeGost.d1}}</th>
+          <th>{{TypeGost.do}}</th>
+          <th>{{TypeGost.m}}</th>
+          <th>{{TypeGost.h}}</th>
+          <th>{{TypeGost.c}}</th>
+          <th>{{TypeGost.c1}}</th>
+          <th>{{TypeGost.rezb}}</th>
+          <!-- <select [(ngModel)]="selectedRezb"  class="selectpicker"  style="margin:5px; width: 110px;">
+          <option  *ngFor=" let Rezb of GostParamRezbsItem.Rezbs" [ngValue]="Rezb">{{Rezb.type_rezb}}</option>
+        </select> -->
+        <!-- {{selectedRezb | json}} -->
+         <td>
+            <button class="btn btn-secondary" (click)="insertFile2(TypeGost)">Вставить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table" *ngIf="flagGost2">    
+        <thead class="thead-inverse">
+        <tr>
+          <th>№</th>
+          <th>D</th>
+          <th>D2</th>
+          <th style="text-transform: lowercase;">m</th>
+          <th style="text-transform: lowercase;">da</th>
+          <th style="text-transform: lowercase;">b</th>
+          <th style="text-transform: lowercase;">h</th>
+          <th style="text-transform: lowercase;">c</th>
+          <th>Резьба</th>
+          <th></th>
+        </tr>
+        </thead>
+        <!-- Вывод всех параметров -->
+        <!-- TypeGost - обьект определенной строки с параметрами -->
+        <tbody>
+        <tr *ngFor=" let TypeGost of TypeGosts">
+          <th >{{TypeGost.id}}</th>
+          <th>{{TypeGost.d}}</th>
+          <th>{{TypeGost.d2}}</th>
+          <th>{{TypeGost.m}}</th>
+          <th>{{TypeGost.da}}</th>
+          <th>{{TypeGost.b}}</th>
+          <th>{{TypeGost.h}}</th>
+          <th>{{TypeGost.c}}</th>
+          <th>{{TypeGost.rezb}}</th>
+          <!-- <select [(ngModel)]="selectedRezb"  class="selectpicker"  style="margin:5px; width: 110px;">
+          <option  *ngFor=" let Rezb of GostParamRezbsItem.Rezbs" [ngValue]="Rezb">{{Rezb.type_rezb}}</option>
+        </select> -->
+        <!-- {{selectedRezb | json}} -->
+         <td>
+            <button class="btn btn-secondary" (click)="insertFile2(TypeGost)">Вставить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table" *ngIf="flagGost3">    
+        <thead class="thead-inverse">
+        <tr>
+          <th>№</th>
+          <th>D1</th>
+          <th>D2</th>
+          <th style="text-transform: lowercase;">m1</th>
+          <th style="text-transform: lowercase;">da</th>
+          <th style="text-transform: lowercase;">b</th>
+          <th style="text-transform: lowercase;">h</th>
+          <th style="text-transform: lowercase;">c</th>
+          <th>Резьба</th>
+          <th></th>
+        </tr>
+        </thead>
+        <!-- Вывод всех параметров -->
+        <!-- TypeGost - обьект определенной строки с параметрами -->
+        <tbody>
+        <tr *ngFor="let TypeGost of TypeGosts">
+          <th >{{TypeGost.id-2}}</th>
+          <th>{{TypeGost.d}}</th>
+          <th>{{TypeGost.d2}}</th>
+          <th>{{TypeGost.m}}</th>
+          <th>{{TypeGost.da}}</th>
+          <th>{{TypeGost.b}}</th>
+          <th>{{TypeGost.h}}</th>
+          <th>{{TypeGost.c}}</th>
+          <th>{{TypeGost.rezb}}</th>
+          <!-- <select [(ngModel)]="selectedRezb"  class="selectpicker"  style="margin:5px; width: 110px;">
+          <option  *ngFor=" let Rezb of GostParamRezbsItem.Rezbs" [ngValue]="Rezb">{{Rezb.type_rezb}}</option>
+        </select> -->
+        <!-- {{selectedRezb | json}} -->
+         <td>
+            <button class="btn btn-secondary" (click)="insertFile2(TypeGost)">Вставить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
