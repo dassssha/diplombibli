@@ -5,6 +5,8 @@ services:
       context: ./Interface
       dockerfile: Dockerfile
     container_name: frontend
+    ports:
+      - "80:80"
 
   backend:
     build:
