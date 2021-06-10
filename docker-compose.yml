@@ -1,10 +1,10 @@
 version: "3.8"
 services:
-  # frontend:
-  #   build:
-  #     context: ./Interface
-  #     dockerfile: Dockerfile
-  #   container_name: frontend
+  frontend:
+    build:
+      context: ./Interface
+      dockerfile: Dockerfile
+    container_name: frontend
 
   backend:
     build:
