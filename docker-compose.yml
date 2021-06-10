@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  # frontend:
+  #   build:
+  #     context: ./Interface
+  #     dockerfile: Dockerfile
+  #   container_name: frontend
+
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: backend
+
